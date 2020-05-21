@@ -1,0 +1,8 @@
+## Interface: 52000
+## Title: iCustomNames
+## Notes: xxx
+## Author: Ironi
+## Version: v1.0
+## SavedVariables: iCustomNamesDB
+
+iCustomNames.lua
