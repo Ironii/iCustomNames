@@ -18,7 +18,7 @@ local function functionParseImports(str)
 end
 local function showImportBox()
 	if not icnFrame then
-		icnFrame = CreateFrame('EditBox', 'iCNCopyFrame', UIParent)
+		icnFrame = CreateFrame('EditBox', 'iCNCopyFrame', UIParent, BackdropTemplateMixin and "BackdropTemplate")
 		icnFrame:SetBackdrop({
 				bgFile = "Interface\\Buttons\\WHITE8x8",
 				edgeFile = "Interface\\Buttons\\WHITE8x8",
@@ -58,7 +58,7 @@ end
 
 function iCN_GetName(name)
 	if iCustomNamesDB[name] then
-		return iCustomNamesDB[name]
+		return iCustomNamesDB[name], true
 	else
 		return name
 	end
@@ -180,6 +180,28 @@ do
 		end
 	end
 end
+--[[
+--NickTag
+do
+	ICNTESTER = "details"
+	local _originalNickTag
+	if NickTag then
+		ICNTESTER = "NICKTAG"
+		_originalNickTag = NickTag.GetNickname
+		NickTag.GetNickname = function(self, playerName, default, silent) 
+			print("asking for ", playerName)
+			local n, found = iCN_GetName(playerName)
+			if found then
+				print("returning ", n)
+				return n
+			else
+				return _originalNickTag(self, playerName, default, silent)
+			end
+		end
+	end
+end
+
+--]]
 
 SLASH_ICUSTOMNAMES1 = "/icn"
 SlashCmdList["ICUSTOMNAMES"] = function(msg)
