@@ -1,4 +1,4 @@
-## Interface: 52000
+## Interface: 90005
 ## Title: iCustomNames
 ## Notes: xxx
 ## Author: Ironi
