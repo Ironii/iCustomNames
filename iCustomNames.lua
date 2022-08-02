@@ -73,22 +73,23 @@ if ElvUF and ElvUF.Tags then
 	ElvUF.Tags.Events['icn'] = 'UNIT_NAME_UPDATE'
 	ElvUF.Tags.Methods['icn'] = function(unit)
 		local name = UnitName(unit)
-		if iCustomNamesDB[name] then
-			return iCustomNamesDB[name]
-		else
-			return name or ''
-		end
+		return iCN_GetName(name) or ""
 	end
 end
 if ElvUF and ElvUF.Tags then
 	ElvUF.Tags.Events['icn-len5'] = 'UNIT_NAME_UPDATE'
 	ElvUF.Tags.Methods['icn-len5'] = function(unit)
 		local name = UnitName(unit)
-		if iCustomNamesDB[name] then
-			return iCustomNamesDB[name]:sub(1,5)
-		else
-			return name:sub(1,5) or ''
-		end
+		local n = iCN_GetName(name)
+		return n and n:sub(1,5) or ""
+	end
+end
+if ElvUF and ElvUF.Tags then
+	ElvUF.Tags.Events['icn-len8'] = 'UNIT_NAME_UPDATE'
+	ElvUF.Tags.Methods['icn-len8'] = function(unit)
+		local name = UnitName(unit)
+		local n = iCN_GetName(name)
+		return n and n:sub(1,8) or ""
 	end
 end
 
@@ -164,7 +165,7 @@ do
 							local name = txt:match('%w+$')
 							if name then
 								local preStr = txt:gsub(name, '')
-								self:SetFormattedText('%s%s',preStr,iCN_GetName(name))
+								self:SetFormattedText('%s%s',preStr,iCN_GetName(name) or "")
 							end
 						end
 					end)
@@ -183,7 +184,7 @@ do
 	local function parseText(txt)
 		if not txt then return end
 		return txt:gsub("(|cff%x%x%x%x%x%x)(%a-)(%*?|r)",function(s,name,e)
-			return s..iCN_GetName(name)..e
+			return s..(iCN_GetName(name) or "")..e
 		end)
 	end
 	function iCN:SetupBigWigs()
