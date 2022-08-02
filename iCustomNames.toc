@@ -1,8 +1,9 @@
-## Interface: 90005
+## Interface: 90205
 ## Title: iCustomNames
 ## Notes: xxx
 ## Author: Ironi
 ## Version: v1.0
 ## SavedVariables: iCustomNamesDB
+##OptionalDeps: Liquid
 
 iCustomNames.lua

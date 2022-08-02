@@ -57,13 +57,15 @@ local function showImportBox()
 end
 
 function iCN_GetName(name)
-	if iCustomNamesDB[name] then
+	local ln = LiquidAPI and LiquidAPI:GetName(name)
+	if ln and ln ~= name then
+		return ln, true
+	elseif iCustomNamesDB[name] then
 		return iCustomNamesDB[name], true
 	else
 		return name
 	end
 end
-
 
 --ElvUI-----
 if ElvUF and ElvUF.Tags then
