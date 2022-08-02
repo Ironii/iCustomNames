@@ -57,6 +57,7 @@ local function showImportBox()
 end
 
 function iCN_GetName(name)
+	if not name then return end
 	local ln = LiquidAPI and LiquidAPI:GetName(name)
 	if ln and ln ~= name then
 		return ln, true
